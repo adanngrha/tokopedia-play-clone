@@ -6,7 +6,7 @@ export default function Navbar() {
             <AppBar position="relative" sx={{mb: '15px'}}>
                 <Toolbar>
                     <Typography variant="h4" component="div" sx={{ flexGrow: 1 }}>
-                        Adan&#39;s Play
+                        Tokopedia&#39;s Play
                     </Typography>
                     {/*<Button color="inherit">Login</Button>
                     <Button color="inherit">Register</Button>*/}
