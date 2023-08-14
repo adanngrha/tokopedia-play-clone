@@ -9,8 +9,9 @@ export default function App() {
     const [loading , setLoading] = React.useState(true);
     const [videos, setVideos] = React.useState([]);
 
+
     useEffect(() => {
-        axios.get('http://localhost:3000/api/videos')
+        axios.get('https://sandbox-395908.et.r.appspot.com/api/videos')
             .then((response) => {
                 setVideos(response.data.data);
                 setLoading(false);
@@ -24,7 +25,6 @@ export default function App() {
 
     return (
         <>
-            <Navbar />
             <main>
                 <Routes>
                     <Route path="/" element={ <HomePage videos={videos} /> } />

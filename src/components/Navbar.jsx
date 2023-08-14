@@ -3,8 +3,8 @@ import {AppBar, Toolbar, Typography, IconButton, Avatar} from "@mui/material";
 import Button from "@mui/material/Button";
 export default function Navbar() {
     return (
-            <AppBar position="relative" sx={{mb: '15px'}}>
-                <Toolbar>
+            <AppBar position="fixed" sx={{mb: '15px'}}>
+                <Toolbar variant="dense">
                     <Typography variant="h4" component="div" sx={{ flexGrow: 1 }}>
                         Tokopedia&#39;s Play
                     </Typography>

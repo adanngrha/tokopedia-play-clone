@@ -1,12 +1,17 @@
-import {Container, Grid, Card,
-    CardContent, Typography, CardMedia
+import {
+    Container, Grid, Card,
+    CardContent, Typography, CardMedia,
 } from "@mui/material";
 import {Link} from "react-router-dom";
 import PropTypes from 'prop-types';
+import Navbar from "../components/Navbar.jsx";
+import React from "react";
 
 const HomePage = ({ videos }) => {
     return (
-        <Container maxWidth="xl">
+        <>
+        <Navbar />
+        <Container maxWidth="xl" sx={{ mt:10 }}>
             <Grid container spacing={2}>
                 {videos.map((card) => (
                     <Grid item key={card._id} xs={4} sm={4} md={2} xl={2}>
@@ -39,6 +44,7 @@ const HomePage = ({ videos }) => {
                 ))}
             </Grid>
         </Container>
+        </>
     );
 }
 
