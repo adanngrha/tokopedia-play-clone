@@ -96,7 +96,7 @@ export default function VideoDetailPage() {
                     boxSizing: 'border-box',
                 }, }} justify="flex-start" >
                 <h3>Comments</h3>
-                 {
+                {
                     comments.map((comment) => (
                             <div key={comment._id}>
                                 <p>{comment.username}</p>
