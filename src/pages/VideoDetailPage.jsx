@@ -14,7 +14,6 @@ import {
 } from "@mui/material";
 import { MdKeyboardBackspace } from "react-icons/md";
 import {Link} from "react-router-dom";
-import {display} from "@mui/system";
 
 export default function VideoDetailPage() {
     const {id} = useParams();
