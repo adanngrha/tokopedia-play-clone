@@ -1,127 +1,87 @@
-import React, {useEffect} from "react";
+import React, {useEffect, useState} from "react";
 import {useParams} from "react-router-dom";
 import axios from "axios";
 import {
-    TextField,
-    CardContent,
-    Card,
-    Typography,
-    CardMedia,
-    Toolbar,
     Grid,
-    FormControl,
-    Box
 } from "@mui/material";
-import { MdKeyboardBackspace } from "react-icons/md";
-import {Link} from "react-router-dom";
+import ProductsList from "../components/ProductsList";
+import CommentsList from "../components/CommentsList";
+import VideoDetail from "../components/VideoDetail";
+import CommentInput from "../components/CommentInput";
 
 export default function VideoDetailPage() {
     const {id} = useParams();
-    const [video, setVideo] = React.useState(null);
-    const [products, setProducts] = React.useState([]);
-    const [comments, setComments] = React.useState([]);
-    const [initializing, setInitializing] = React.useState(true);
+    const [video, setVideo] = useState(null);
+    const [products, setProducts] = useState([]);
+    const [comments, setComments] = useState([]);
+    const [initializing, setInitializing] = useState(true);
 
     useEffect(() => {
         const fetchData = async () => {
-            const videoResponse = await axios.get(`https://sandbox-395908.et.r.appspot.com/api/videos/${id}`);
-            const productsResponse = await axios.get(`https://sandbox-395908.et.r.appspot.com/api/videos/${id}/products`);
+            const videoResponse = await axios.get(`http://localhost:3080/api/videos/${id}`);
+            const productsResponse = await axios.get(`http://localhost:3080/api/videos/${id}/products`);
+            const commentsResponse = await axios.get(`http://localhost:3080/api/videos/${id}/comments`);
 
             setVideo(videoResponse.data.data);
             setProducts(productsResponse.data.data);
+            setComments(commentsResponse.data.data);
             setInitializing(false);
         }
         fetchData();
 
     }, []);
 
-    useEffect(() => {
-        axios.get(`https://sandbox-395908.et.r.appspot.com/api/videos/${id}/comments`).then(
-            (response) => {
-                setComments(response.data.data);
-            }
-        )
+    const onAddComment = async ({ username, comment }) => {
+        await axios.post(`http://localhost:3080/api/videos/${id}/comments`, {
+            username: username,
+            comment: comment
+        });
 
-    }, [comments, setComments]);
+        setComments([...comments, {username, comment}]);
+        // window.location.reload();
+    };
+
+    // const addComment = async ({ username, comment }) => {
+    //     await axios.post(`http://localhost:3080/api/videos/${id}/comments`, {
+    //         username: username,
+    //         comment: comment
+    //     })
+    // }
+
+    // const onAddComment = async ({ username, comment }) => {
+    //     await addComment({ username, comment });
+    //     window.location.reload();
+    // }
+    // const handleSubmitComment = (event, username, comment) => {
+    //     event.preventDefault();
+    //     if (username === '' || comment === '') {
+    //         alert('Username and Comment cannot be empty');
+    //         return;
+    //     }
+
+    //     axios.post(`http://localhost:3080/api/videos/${id}/comments`, {
+    //             username: username,
+    //             comment: comment
+    //     }).then(response => {
+    //         console.log(response.data.data);
+    //     }).catch(error => {
+    //         console.log(error);
+    //     });
+    // }
 
     if (initializing) return null;
 
     return (
-        <Grid container >
-            <Grid
-                sx={{
-                    width: 250,
-                    flexShrink: 0,
-                    '& .MuiDrawer-paper': {
-                        width: 240,
-                        boxSizing: 'border-box',
-                    },
-                }}
-                variant="permanent"
-                anchor="left"
-            >
-                <Toolbar variant="dense">
-                    <Link to="/"> <MdKeyboardBackspace /> Back</Link>
-                </Toolbar>
-                <h3>Products</h3>
-
-                {
-                    products.map((product) => (
-                        <Card key={product._id} sx={{ display: "flex" }}>
-                            <CardContent sx={{ flex: '1 0 auto' }}>
-                                <Typography>{product.title}</Typography>
-                                <Typography>{product.price}</Typography>
-                            </CardContent>
-                            <CardMedia component="img" sx={{ width: 100}} image="https://m.media-amazon.com/images/I/51TJknV3NbL.jpg" />
-                        </Card>
-                        )
-                    )
-                }
+        <Grid container spacing={2} sx={{ mt:2 }}>
+            <Grid item xs={3}>
+                <ProductsList products={products}/>
             </Grid>
-            <Grid sx={{ display:"flex", flexDirection: 'column',  alignItems:"center", justifyContent:"center" }}>
-                <h1>{video.title}</h1>
-                <iframe src="https://www.youtube.com/embed/E7wJTI-1dvQ"
-                        allow='autoplay; encrypted-media'
-                        allowFullScreen
-                        title='video'
-                        width='640'
-                        height='360'
-                />
+            <Grid item xs={6}>
+                <VideoDetail video={video} />
             </Grid>
-
-            <Grid container direction="column" sx={{ width: 250,
-                flexShrink: 0,
-                '& .MuiDrawer-paper': {
-                    width: 240,
-                    boxSizing: 'border-box',
-                }, }} justify="flex-start" >
-                <h3>Comments</h3>
-                {
-                    comments.map((comment) => (
-                            <div key={comment._id}>
-                                <p>{comment.username}</p>
-                                <p>{comment.comment}</p>
-                            </div>
-                        )
-                    )
-                }
-                <FormControl >
-                    <Grid container direction="row">
-                        <Box>
-                            <TextField id="outlined-basic" label="Outlined" variant="outlined" />
-                            <TextField
-                                id="outlined-multiline-flexible"
-                                label="Multiline"
-                                multiline
-                                maxRows={4}
-                            />
-                        </Box>
-                        <button>
-                            Submit
-                        </button>
-                    </Grid>
-
-                </FormControl>
+            <Grid item xs={3}>
+                <CommentsList comments={comments} />
+                <CommentInput addComment={onAddComment}/>
             </Grid>
         </Grid>
     )

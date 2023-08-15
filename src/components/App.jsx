@@ -1,5 +1,4 @@
 import React, {useEffect} from 'react';
-import Navbar from "./Navbar.jsx";
 import HomePage from "../pages/HomePage.jsx";
 import {Route, Routes} from "react-router-dom";
 import VideoDetailPage from "../pages/VideoDetailPage.jsx";
