@@ -13,8 +13,6 @@ This project already deployed at Vercel. [https://tokopedia-play-clone-eosin.ver
 
 To get started, clone this repository and make sure you have `node.js` and `npm` installed globally on your machine. Then, navigate to the cloned repository folder in your terminal and run `npm install`.
 
-To run the test suite, use the command `npm run dev`.
-
-To start the server, use the command `npm run start`.
+To run the app, use the command `npm run dev`.
 
 To access the app, open your browser and go to `localhost:5173/`.
