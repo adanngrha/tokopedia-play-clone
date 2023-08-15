@@ -1,5 +1,5 @@
 import React from "react";
-import { List, Toolbar, Card, CardContent, CardMedia, Typography, Grid, IconButton, Box } from "@mui/material";
+import { List, Toolbar, Card, CardContent, CardMedia, Typography, Grid, Box } from "@mui/material";
 import { Link } from "react-router-dom";
 import { MdArrowBack } from "react-icons/md";
 import PropTypes from 'prop-types';
@@ -24,14 +24,15 @@ const ProductsList = ({ products }) => {
         </Toolbar>
             <div>
             {
-                products.length === 0 ? ( <Typography sx={{ flexGrow: 1, textAlign:"center" }}>No products yet</Typography>
+                products.length === 0 ? ( 
+                    <Typography sx={{ flexGrow: 1, textAlign:"center" }}>No products yet</Typography>
                 ) : (
-                    <List>
+                    <Box sx={{ overflow: "auto", maxHeight:"100vh", height:"100%" }}>
                     {
                         products.map((product) => (
-                       <Card key={product._id} sx={{ display: 'flex', maxWidth: 345 }}>
+                       <Card key={product._id} sx={{ display: 'flex', maxWidth: 345, mt:1 }}>
                         <CardMedia image={product.url_image}
-                            sx={{ width: 100, height: 100 }}
+                            sx={{ width: 100, height: 100, borderRadius: "10px" }}
                         />
                         <CardContent sx={{ flex: "1 0 auto" }}>
                             <Typography>
@@ -48,7 +49,7 @@ const ProductsList = ({ products }) => {
                        </Card>
                     ))
                     }
-                    </List>
+                    </Box>
                 )
             }
             </div>

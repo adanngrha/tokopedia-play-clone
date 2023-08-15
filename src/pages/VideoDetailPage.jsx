@@ -38,36 +38,8 @@ export default function VideoDetailPage() {
         });
 
         setComments([...comments, {username, comment}]);
-        // window.location.reload();
+        
     };
-
-    // const addComment = async ({ username, comment }) => {
-    //     await axios.post(`http://localhost:3080/api/videos/${id}/comments`, {
-    //         username: username,
-    //         comment: comment
-    //     })
-    // }
-
-    // const onAddComment = async ({ username, comment }) => {
-    //     await addComment({ username, comment });
-    //     window.location.reload();
-    // }
-    // const handleSubmitComment = (event, username, comment) => {
-    //     event.preventDefault();
-    //     if (username === '' || comment === '') {
-    //         alert('Username and Comment cannot be empty');
-    //         return;
-    //     }
-
-    //     axios.post(`http://localhost:3080/api/videos/${id}/comments`, {
-    //             username: username,
-    //             comment: comment
-    //     }).then(response => {
-    //         console.log(response.data.data);
-    //     }).catch(error => {
-    //         console.log(error);
-    //     });
-    // }
 
     if (initializing) return null;
 

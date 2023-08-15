@@ -28,6 +28,9 @@ const CommentInput = ({ addComment }) => {
       username: username,
       comment: comment,
     });
+
+    onUsernameChange({ target: { value: '' } });
+    onCommentChange({ target: { value: '' } });
   }
 
   return (
@@ -41,21 +44,28 @@ const CommentInput = ({ addComment }) => {
         flexDirection: 'column',
         gap: 2,
         width: 330,
+        backgroundColor: 'primary.dark',
       }}>
       <TextField
         label="Username"
-        variant="outlined"
+        variant="filled"
+        size="small"
         value={username}
         onChange={onUsernameChange}
       />
       <TextField
         label="Comment"
-        variant="outlined"
+        variant="filled"
         multiline
         rows={3}
         value={comment}
         onChange={onCommentChange}
-      />
+        onKeyDown={(event) => {
+          if (event.key === 'Enter' && event.shiftKey === false) {
+            event.preventDefault();
+            onSubmitHandler(event);
+          }
+        }}/>
       <Button type="submit" variant="contained" color="secondary">
         Submit
       </Button>

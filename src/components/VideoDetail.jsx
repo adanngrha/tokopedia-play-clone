@@ -5,7 +5,7 @@ import PropTypes from 'prop-types';
 const VideoDetail = ({ video }) => {
   return (
     <Grid sx={{ display:"flex", flexDirection: 'column',  alignItems:"center", justifyContent:"center", minHeight:"90vh"}}>
-                <Typography variant="h4" sx={{ noWrap: true }}>
+                <Typography variant="h4" sx={{ noWrap: true, mb:2 }}>
                     {video.title}
                 </Typography>
                 <iframe src={video.url_video}
